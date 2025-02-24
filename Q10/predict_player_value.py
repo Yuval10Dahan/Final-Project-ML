@@ -25,7 +25,7 @@ def filter_data(df, fifa_version):
 
 def preprocess_data(df, features):
     # Drop rows that have missing values
-    df = df.dropna(subset=features)
+    df = df.dropna(subset=features + ["value_eur"])
 
     # Select only the features specified in the list
     X = df[features]
