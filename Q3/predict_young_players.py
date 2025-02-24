@@ -122,7 +122,7 @@ if __name__ == "__main__":
     # Train and evaluate models
     evaluate_model(DecisionTreeRegressor(), "Decision Tree", X_train, X_test, y_train, y_test, results)
     evaluate_model(SVC(C=0.1, kernel='linear'), "Support Vector Machine", X_train, X_test, y_train, y_test, results)
-    evaluate_model(AdaBoostClassifier(learning_rate=0.01, n_estimators=50), "AdaBoost", X_train, X_test, y_train, y_test, results)
+    evaluate_model(AdaBoostClassifier(learning_rate=0.1, n_estimators=300), "AdaBoost", X_train, X_test, y_train, y_test, results)
     evaluate_model(LogisticRegression(C=0.1), "Logistic Regression", X_train, X_test, y_train, y_test, results)
     evaluate_model(KNeighborsClassifier(n_neighbors=3, weights='uniform'), "Nearest Neighbor", X_train, X_test, y_train, y_test, results)
     evaluate_model(DecisionTreeRegressor(), "Decision Tree (PCA)", X_train_pca, X_test_pca, y_train, y_test, results)
