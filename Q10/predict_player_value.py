@@ -17,7 +17,7 @@ def load_data(file_path):
 
 
 def filter_data(df, fifa_version):
-    # Include only players in FIFA 2024 and from league level of 1
+    # Include only players from the specific fifa_version and from league level of 1
     filtered_df = df[(df['fifa_version'] == fifa_version) & (df['league_level'] == 1)]
 
     return filtered_df
