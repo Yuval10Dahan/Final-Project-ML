@@ -67,18 +67,6 @@ def split_and_scale_data(df, features, target):
     return X_train_scaled, X_test_scaled, y_train, y_test
 
 
-def apply_pca(X_train, X_test, n_components=10):
-    pca = PCA(n_components=n_components)
-
-    # Fit PCA on the training data and transform it to the new lower-dimensional space
-    X_train_pca = pca.fit_transform(X_train)
-
-    # Apply the trained PCA transformation to the test data
-    X_test_pca = pca.transform(X_test)
-
-    return X_train_pca, X_test_pca
-
-
 def evaluate_model(model, model_name, X_train, X_test, y_train, y_test, results):
     # Train the model using the training data
     model.fit(X_train, y_train)
@@ -114,9 +102,6 @@ if __name__ == "__main__":
     young_players_data_frame = define_target_variable(young_players_data_frame, data_frame)
     X_train, X_test, y_train, y_test = split_and_scale_data(young_players_data_frame, features, target)
 
-    # Apply PCA
-    X_train_pca, X_test_pca = apply_pca(X_train, X_test)
-
     results = []
 
     # Train and evaluate models
@@ -125,7 +110,6 @@ if __name__ == "__main__":
     evaluate_model(AdaBoostClassifier(learning_rate=0.1, n_estimators=300), "AdaBoost", X_train, X_test, y_train, y_test, results)
     evaluate_model(LogisticRegression(C=0.1), "Logistic Regression", X_train, X_test, y_train, y_test, results)
     evaluate_model(KNeighborsClassifier(n_neighbors=3, weights='uniform'), "Nearest Neighbor", X_train, X_test, y_train, y_test, results)
-    evaluate_model(DecisionTreeRegressor(), "Decision Tree (PCA)", X_train_pca, X_test_pca, y_train, y_test, results)
 
     # Print results
     results_df = pd.DataFrame(results, columns=["Model", "Mean Absolute Error", "Root Mean Squared Error"])
