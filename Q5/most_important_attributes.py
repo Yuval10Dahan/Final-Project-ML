@@ -18,13 +18,11 @@ def load_data(file_path):
     numerical_cols.remove("overall")
 
     # Remove biased features
-    biased_features = ["player_id", "fifa_version", "club_team_id"]
-    numerical_cols = list(set(numerical_cols) - set(biased_features))
-
-    # Ensure no duplicate feature names exist
-    numerical_cols = list(dict.fromkeys(numerical_cols))
-
+    biased_features = ["player_id", "fifa_version"]
+    numerical_cols = [col for col in numerical_cols if col not in biased_features]
     X = data_frame[numerical_cols].fillna(0)
+
+    # Extract the target variable
     y = data_frame["overall"]
 
     return X, y
@@ -67,7 +65,7 @@ def compute_feature_importance(X_train, y_train):
     return feature_importances.sort_values(by="Importance", ascending=False)
 
 
-def perform_pca(X, n_components=5):
+def perform_pca(X, n_components=6):
     # Normalize feature values
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
